@@ -96,19 +96,19 @@ public class Chassis {
         switch (mode) {
 
             case RUN_TO_POSITION:
-                setAllWheelRunToPosition();
+                setAllWheelMode(DcMotor.RunMode.RUN_TO_POSITION);
                 break;
 
             case RUN_USING_ENCODER:
-                setAllWheelRunUsingEncoder();
+                setAllWheelMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 break;
 
             case RUN_WITHOUT_ENCODER:
-                setAllWheelRunWithoutEncoder();
+                setAllWheelMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 break;
 
             case STOP_AND_RESET_ENCODER:
-                setAllWheelStopResetEncoder();
+                setAllWheelMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 break;
 
 
@@ -144,7 +144,7 @@ public class Chassis {
     public void runWheelPreCondition(){
 
         setAllWheelZeroPower();
-        setAllWheelStopResetEncoder();
+        setAllWheelMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
     }
 
@@ -176,51 +176,9 @@ public class Chassis {
         back_right_wheel.setMode(mode);
     }
 
-    //function to set the mode of all wheels to RUN_TO_POSITION
-    public void setAllWheelRunToPosition(){
 
-        front_left_wheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        front_right_wheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        back_left_wheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        back_right_wheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    }
 
-    //function to set the mode for all wheels to RUN_USING_ENCODER
-    public void setAllWheelRunUsingEncoder(){
 
-        front_left_wheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        front_right_wheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        back_left_wheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        back_right_wheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    }
-
-    //function to set the mode for all wheels to RUN_WITHOUT_ENCODER
-    public void setAllWheelRunWithoutEncoder(){
-
-        front_left_wheel.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        front_right_wheel.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        back_left_wheel.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        back_right_wheel.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-    }
-
-    //function to set the mode for all wheels to STOP_AND_RESET_ENCODER
-    public void setAllWheelStopResetEncoder(){
-
-        front_left_wheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        front_right_wheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        back_left_wheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        back_right_wheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    }
-
-    //functions for moving the wheel drive
-
-    public void robotMove(int position){
-
-        setAllWheelDirection(DcMotor.Direction.FORWARD);
-        setAllWheelTargetPosition(position);
-        setAllWheelRunToPosition();
-
-    }
 
     //setting the target position for all wheels
     public void setAllWheelTargetPosition(int position){
@@ -236,7 +194,22 @@ public class Chassis {
     public void setAllWheelPower(double power){
 
         front_left_wheel.setPower(power);
+        front_right_wheel.setPower(power);
+        back_left_wheel.setPower(power);
+        back_right_wheel.setPower(power);
 
+    }
+
+    //functions for moving the wheel drive
+
+    //function to move forward given position and power
+    public void robotMove(int position, double power) {
+
+        setAllWheelDirection(DcMotor.Direction.FORWARD);
+        setAllWheelTargetPosition(position);
+        setAllWheelMode(DcMotor.RunMode.RUN_TO_POSITION);
+        setAllWheelZeroPower();
+        setAllWheelPower(power);
     }
 }
 
