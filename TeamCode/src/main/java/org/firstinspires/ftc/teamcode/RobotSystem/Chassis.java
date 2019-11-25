@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import java.util.ArrayList;
 
-public class Chasis {
+public class Chassis {
 
     HardwareMap robotConfiguration;
 
@@ -14,10 +14,10 @@ public class Chasis {
     DcMotor back_left_wheel;
     DcMotor back_right_wheel;
 
-    public Chasis() {
+    public Chassis() {
     }
 
-    public Chasis(HardwareMap myRobotHardwareMap){
+    public Chassis(HardwareMap myRobotHardwareMap){
 
         robotConfiguration = myRobotHardwareMap;
 
