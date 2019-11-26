@@ -4,15 +4,20 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
-import org.firstinspires.ftc.teamcode.RobotSystem.Chassis;
-import org.firstinspires.ftc.teamcode.RobotSystem.Controller;
+import org.firstinspires.ftc.teamcode.RobotSystem.FrontBumper;
 
-@TeleOp(name = "TestOpMode",group = "TeleOp")
-public class TestOpMode extends LinearOpMode {
+
+@TeleOp(name = "TestTouchSensor",group = "TeleOp")
+public class TestTouchSensor extends LinearOpMode {
 
     HardwareMap myRobotHardwareMap;
     Gamepad myGamePad;
+
+    FrontBumper hazmatFrontSensor;
+
+    boolean robotRun;
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -28,6 +33,20 @@ public class TestOpMode extends LinearOpMode {
         while (opModeIsActive()){
 
 
+            if (hazmatFrontSensor.isBumperPressed()){
+
+                telemetry.addData("Bumper status = ", "bumper pressed");
+
+            }
+            else{
+
+                telemetry.addData("Bumper status = ", "bumper not pressed");
+            }
+
+            telemetry.update();
+
+
+
         }
 
     }
@@ -36,8 +55,10 @@ public class TestOpMode extends LinearOpMode {
 
         myRobotHardwareMap = super.hardwareMap;
         myGamePad = super.gamepad1;
+        robotRun=true;
+        telemetry.setAutoClear(false);
 
-     }
+    }
 
     public void initSystem(){
 
@@ -55,6 +76,10 @@ public class TestOpMode extends LinearOpMode {
         //Create Intake object
 
         //Create Arm object
+
+        //create TouchSensor
+        hazmatFrontSensor = new FrontBumper(myRobotHardwareMap);
+
 
     }
 }

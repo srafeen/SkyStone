@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 @TeleOp(name = "JoyStickTest", group = "Testing")
 public class JoyStickTest extends LinearOpMode {
 
@@ -17,10 +19,14 @@ public class JoyStickTest extends LinearOpMode {
     float rightjoystick_y_value = 0;
 
 
+
+
     @Override
     public void runOpMode() throws InterruptedException {
 
         //when init is pressed
+
+        telemetry.setAutoClear(false);
         initSystemVariables();
         initSystem();
         createRobotSystem();
@@ -34,7 +40,7 @@ public class JoyStickTest extends LinearOpMode {
             leftjoystick_x_value = myGamePad.left_stick_x;
             leftjoystick_y_value = myGamePad.left_stick_y;
 
-            telemetry.addData("left joystick X = ",  leftjoystick_x_value);
+            telemetry.addData("left joystick X = ",   leftjoystick_x_value);
             telemetry.addData("left joystick Y = ", leftjoystick_y_value);
             telemetry.update();
 
@@ -43,6 +49,7 @@ public class JoyStickTest extends LinearOpMode {
 
 
     }
+
 
     public void initSystemVariables(){
 
